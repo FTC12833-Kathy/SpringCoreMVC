@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<!-- the name of this html file must be returned by a method in the controller -->
+<head>
+    <title>Spring Core Online Tutorial - List Products</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.4.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+    <link href="../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+<div class="container">
+    <!-- "products" is the name associated with the object in the controller (through model.addAttribute) -->
+    <div th:if="${not #lists.isEmpty(products)}">
+        <h2>Product List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image URL</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.imageUrl}"></td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(products)}">
+        <h2>Empty File</h2>
+    </div>
+</div>
+</body>
+</html>
