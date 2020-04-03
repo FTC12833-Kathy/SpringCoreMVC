@@ -29,6 +29,7 @@ public class ProductController {
     }
 
     @RequestMapping("/product/{id}")
+    // @PathVariable binds the web data to our variable
     public String getProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
 
@@ -42,7 +43,6 @@ public class ProductController {
         return "productform";
     }
 
-
     @RequestMapping("/product/new")
     public String newProduct(Model model){
         model.addAttribute("product", new Product());
@@ -55,5 +55,11 @@ public class ProductController {
         Product savedProduct = productService.saveOrUpdateProduct(product);
 
         return "redirect:/product/" + savedProduct.getId();
+    }
+
+    @RequestMapping("/product/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        productService.deleteProduct(id);
+        return "redirect:/products";
     }
 }
