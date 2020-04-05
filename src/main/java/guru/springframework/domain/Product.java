@@ -1,4 +1,4 @@
-package guru.springframework.springmvc.domain;
+package guru.springframework.domain;
 
 import java.math.BigDecimal;
 

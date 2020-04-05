@@ -1,6 +1,6 @@
-package guru.springframework.springmvc.services;
+package guru.springframework.services;
 
-import guru.springframework.springmvc.domain.Product;
+import guru.springframework.domain.Product;
 
 import java.util.List;
 

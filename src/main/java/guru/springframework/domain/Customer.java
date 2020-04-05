@@ -1,4 +1,4 @@
-package guru.springframework.springmvc.domain;
+package guru.springframework.domain;
 
 public class Customer extends DomainID{
 //    private Integer customerID;

@@ -1,7 +1,7 @@
-package guru.springframework.springmvc.controllers;
+package guru.springframework.controllers;
 
-import guru.springframework.springmvc.domain.Product;
-import guru.springframework.springmvc.services.ProductService;
+import guru.springframework.domain.Product;
+import guru.springframework.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;
@@ -19,47 +20,47 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping("/products")  // This is the path entered in browser (localhost:8080/products)
+    @RequestMapping({"/list", "/", ""})  // This is the path entered in browser (localhost:8080/products)
     public String listProducts(Model model){
 
-        // object (productService.listAllProducts()) is associated with its name (products) to be used in html (products.html)
+        // object (productService.listAllProducts()) is associated with its name (products) to be used in html (listproducts.html)
         model.addAttribute("products", productService.listAllProducts());
         
-        return "products"; // This must equal the html file name (products.html)
+        return "product/listproducts"; // This must equal the html file name (listproducts.html)
     }
 
-    @RequestMapping("/product/{id}")
+    @RequestMapping("/{id}")
     // @PathVariable binds the web data to our variable
     public String getProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
 
-        return  "product";
+        return  "product/showproduct";
     }
 
-    @RequestMapping("/product/edit/{id}")
+    @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getProductById(id));
 
-        return "productform";
+        return "product/maintainproduct";
     }
 
-    @RequestMapping("/product/new")
+    @RequestMapping("/new")
     public String newProduct(Model model){
         model.addAttribute("product", new Product());
 
-        return "productform";
+        return "product/maintainproduct";
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdateProduct(Product product){
         Product savedProduct = productService.saveOrUpdateProduct(product);
 
         return "redirect:/product/" + savedProduct.getId();
     }
 
-    @RequestMapping("/product/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
         productService.deleteProduct(id);
-        return "redirect:/products";
+        return "redirect:/product/list";
     }
 }
