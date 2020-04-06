@@ -24,7 +24,7 @@ public class ProductController {
     public String listProducts(Model model){
 
         // object (productService.listAllProducts()) is associated with its name (products) to be used in html (listproducts.html)
-        model.addAttribute("products", productService.listAllProducts());
+        model.addAttribute("products", productService.listAll());
         
         return "product/listproducts"; // This must equal the html file name (listproducts.html)
     }
@@ -32,14 +32,14 @@ public class ProductController {
     @RequestMapping("/{id}")
     // @PathVariable binds the web data to our variable
     public String getProduct(@PathVariable Integer id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.getByID(id));
 
         return  "product/showproduct";
     }
 
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("product", productService.getByID(id));
 
         return "product/maintainproduct";
     }
@@ -53,14 +53,14 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String saveOrUpdateProduct(Product product){
-        Product savedProduct = productService.saveOrUpdateProduct(product);
+        Product savedProduct = (Product) productService.createOrUpdate(product);
 
         return "redirect:/product/" + savedProduct.getId();
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
-        productService.deleteProduct(id);
+        productService.delete(id);
         return "redirect:/product/list";
     }
 }

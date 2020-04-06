@@ -24,7 +24,7 @@ public class CustomerController {
     public String listCustomers(Model model){
 
         // object (customerService.listAllCustomers()) is associated with its name (customers) to be used in html (listcustomers.html)
-        model.addAttribute("customers", customerService.listAllCustomers());
+        model.addAttribute("customers", customerService.listAll());
         
         return "customer/listcustomers"; // This must equal the html file name (listcustomers.html)
     }
@@ -32,14 +32,14 @@ public class CustomerController {
     @RequestMapping("/{id}")
     // @PathVariable binds the web data to our variable
     public String getCustomer(@PathVariable Integer id, Model model){
-        model.addAttribute("customer", customerService.getCustomerByID(id));
+        model.addAttribute("customer",  customerService.getByID(id));
 
         return  "customer/showcustomer";
     }
 
     @RequestMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        model.addAttribute("customer", customerService.getCustomerByID(id));
+        model.addAttribute("customer", customerService.getByID(id));
 
         return "customer/maintaincustomer";
     }
@@ -53,13 +53,13 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String createOrUpdateCustomer(Customer customer){
-        Customer updatedCustomer = customerService.createOrUpdateCustomer(customer);
+        Customer updatedCustomer = (Customer) customerService.createOrUpdate(customer);
         return "redirect:/customer/" + updatedCustomer.getId();
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
-        customerService.deleteCustomer(id);
+        customerService.delete(id);
         return "redirect:/customer/";
     }
 }

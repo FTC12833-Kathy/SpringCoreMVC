@@ -1,7 +1,6 @@
 package guru.springframework.domain;
 
 public class Customer extends DomainID{
-//    private Integer customerID;
     private String firstName;
     private String lastName;
     private String email;
@@ -12,14 +11,6 @@ public class Customer extends DomainID{
     private String state;
     private String zip;
 
-//    public Integer getCustomerID() {
-//        return customerID;
-//    }
-//
-//    public void setCustomerID(Integer customerID) {
-//        this.customerID = customerID;
-//    }
-//
     public String getFirstName() {
         return firstName;
     }
