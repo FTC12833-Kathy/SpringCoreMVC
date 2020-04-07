@@ -29,7 +29,7 @@ public class CustomerController {
         return "customer/listcustomers"; // This must equal the html file name (listcustomers.html)
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping({"/{id}", "/show/{id}"})
     // @PathVariable binds the web data to our variable
     public String getCustomer(@PathVariable Integer id, Model model){
         model.addAttribute("customer",  customerService.getByID(id));

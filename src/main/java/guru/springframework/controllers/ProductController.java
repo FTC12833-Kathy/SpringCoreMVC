@@ -29,7 +29,7 @@ public class ProductController {
         return "product/listproducts"; // This must equal the html file name (listproducts.html)
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping({"/{id}", "/show/{id}"})
     // @PathVariable binds the web data to our variable
     public String getProduct(@PathVariable Integer id, Model model){
         model.addAttribute("product", productService.getByID(id));
