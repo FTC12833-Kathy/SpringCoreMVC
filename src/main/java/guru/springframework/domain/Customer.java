@@ -1,6 +1,16 @@
 package guru.springframework.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Customer extends DomainID{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Version
+    private Integer version;
+
     private String firstName;
     private String lastName;
     private String email;
